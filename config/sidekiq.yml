@@ -1,0 +1,8 @@
+:cron:
+  daily_statistics_job:
+    cron: "0 18 * * *"
+    class: "DailyStatisticsJob"
+
+  monthly_average_job:
+    cron: "5 18 * * *"
+    class: "MonthlyAverageJob"
