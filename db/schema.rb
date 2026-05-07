@@ -10,36 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_07_163117) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_07_190000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "daily_statistics", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "daily_high"
-    t.integer "daily_low"
-    t.date "date"
-    t.integer "result_count"
-    t.string "subject"
+    t.integer "daily_high", null: false
+    t.integer "daily_low", null: false
+    t.date "date", null: false
+    t.integer "result_count", null: false
+    t.string "subject", null: false
     t.datetime "updated_at", null: false
+    t.index ["date", "subject"], name: "index_daily_statistics_on_date_and_subject", unique: true
   end
 
   create_table "monthly_averages", force: :cascade do |t|
-    t.float "average_daily_high"
-    t.float "average_daily_low"
+    t.float "average_daily_high", null: false
+    t.float "average_daily_low", null: false
     t.datetime "created_at", null: false
-    t.string "month"
-    t.string "subject"
-    t.integer "total_result_count"
+    t.string "month", null: false
+    t.string "subject", null: false
+    t.integer "total_result_count", null: false
     t.datetime "updated_at", null: false
+    t.index ["month", "subject"], name: "index_monthly_averages_on_month_and_subject", unique: true
   end
 
   create_table "test_results", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "marks"
-    t.string "student_name"
-    t.string "subject"
-    t.datetime "submitted_at"
+    t.integer "marks", null: false
+    t.string "student_name", null: false
+    t.string "subject", null: false
+    t.datetime "submitted_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["submitted_at", "subject"], name: "index_test_results_on_submitted_at_and_subject"
   end
 end

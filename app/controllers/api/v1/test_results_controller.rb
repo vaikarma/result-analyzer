@@ -14,11 +14,13 @@ module Api
       private
 
       def test_result_params
+        permitted = params.permit(:student_name, :subject, :marks, :timestamp)
+
         {
-          student_name: params[:student_name],
-          subject: params[:subject],
-          marks: params[:marks],
-          submitted_at: params[:timestamp]
+          student_name: permitted[:student_name],
+          subject: permitted[:subject],
+          marks: permitted[:marks],
+          submitted_at: permitted[:timestamp]
         }
       end
     end

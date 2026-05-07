@@ -26,13 +26,16 @@ class MonthlyAverageCalculator
       break if selected_stats.size >= 5 && total_count >= MINIMUM_RESULTS
     end
 
-    MonthlyAverage.create!(
-      month: Date.today.strftime("%Y-%m"),
-      subject: subject,
+    return if selected_stats.empty?
+
+    month = Date.today.strftime("%Y-%m")
+    record = MonthlyAverage.find_or_initialize_by(month: month, subject: subject)
+    record.assign_attributes(
       average_daily_low: selected_stats.sum(&:daily_low).to_f / selected_stats.size,
       average_daily_high: selected_stats.sum(&:daily_high).to_f / selected_stats.size,
       total_result_count: total_count
     )
+    record.save!
   end
 
   def self.run_day?
